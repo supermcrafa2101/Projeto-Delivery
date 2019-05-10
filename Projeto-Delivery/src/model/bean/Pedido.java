@@ -12,6 +12,7 @@ public class Pedido {
     private String NomeItem;
     private String CPFCliente;
     private int Valor;
+    private String DataPedido;
 
     public int getID() {
         return ID;
@@ -61,6 +62,15 @@ public class Pedido {
         this.Valor = Valor;
     }
 
+    public String getDataPedido() {
+        return DataPedido;
+    }
+
+    public void setDataPedido(String DataPedido) {
+        this.DataPedido = DataPedido;
+    }
+
+    
     @Override
     public String toString() {
         return getNomeCliente();

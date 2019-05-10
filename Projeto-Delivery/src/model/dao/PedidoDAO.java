@@ -69,6 +69,7 @@ public class PedidoDAO {
                 objpedido.setCPFCliente(rs.getString("CPFCliente"));
                 objpedido.setNomeItem(rs.getString("NomeItem"));
                 objpedido.setValor(rs.getInt("Valor"));
+                objpedido.setDataPedido(rs.getString("DataeHora"));
 
                 listPedido.add(objpedido);
 

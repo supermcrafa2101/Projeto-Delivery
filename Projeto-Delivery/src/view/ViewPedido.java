@@ -27,8 +27,6 @@ public class ViewPedido extends javax.swing.JFrame {
      */
     public ViewPedido() {
         initComponents();
-        DefaultTableModel modelo = (DefaultTableModel) tbPedido.getModel();
-        tbPedido.setRowSorter(new TableRowSorter(modelo));
 
         Pessoa pessoabean = new Pessoa();
         Produto produtobean = new Produto();
@@ -45,28 +43,6 @@ public class ViewPedido extends javax.swing.JFrame {
         for (Produto product : produtodao.read()) {
             cbIDItem.addItem(product.getID());
         }
-
-        readJTable();
-    }
-
-    public void readJTable() {
-        // Este metodo serve para atualizar a tabela
-
-        // Cria o modelo da tabela da forma padrao
-        DefaultTableModel modelo = (DefaultTableModel) tbPedido.getModel();
-        modelo.setNumRows(0);
-        PedidoDAO usudao = new PedidoDAO();
-
-        // Lê cada item do 'objpedido' e adiciona na lista 'tbRegistros'
-        usudao.read().forEach((objpedido) -> {
-            modelo.addRow(new Object[]{
-                objpedido.getID(),
-                objpedido.getIDItem(),
-                objpedido.getNomeCliente(),
-                objpedido.getCPFCliente(),
-                objpedido.getNomeItem(),
-                ("R$" + objpedido.getValor())});
-        });
     }
 
     /**
@@ -92,12 +68,10 @@ public class ViewPedido extends javax.swing.JFrame {
         btnProcurarCliente = new javax.swing.JButton();
         btnProcurarItem = new javax.swing.JButton();
         panelBotoes = new javax.swing.JPanel();
-        btnRemoverPedido = new javax.swing.JButton();
         btnSairCadastro = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbPedido = new javax.swing.JTable();
         btnAdicionarPedido = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+        btnConsultarPedidos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -202,15 +176,8 @@ public class ViewPedido extends javax.swing.JFrame {
                         .addComponent(lblVISUALITEM)
                         .addComponent(cbIDItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnProcurarItem)))
-                .addGap(170, 170, 170))
+                .addGap(25, 25, 25))
         );
-
-        btnRemoverPedido.setText("Remover Pedido");
-        btnRemoverPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoverPedidoActionPerformed(evt);
-            }
-        });
 
         btnSairCadastro.setText("Sair");
         btnSairCadastro.addActionListener(new java.awt.event.ActionListener() {
@@ -218,59 +185,6 @@ public class ViewPedido extends javax.swing.JFrame {
                 btnSairCadastroActionPerformed(evt);
             }
         });
-
-        tbPedido.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID Pedido", "IDItem", "NomeCliente", "CPFCliente", "NomeItem", "Valor"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tbPedido.getTableHeader().setReorderingAllowed(false);
-        tbPedido.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbPedidoMouseClicked(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tbPedidoMouseReleased(evt);
-            }
-        });
-        tbPedido.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tbPedidoKeyReleased(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tbPedido);
-        if (tbPedido.getColumnModel().getColumnCount() > 0) {
-            tbPedido.getColumnModel().getColumn(0).setMinWidth(90);
-            tbPedido.getColumnModel().getColumn(0).setPreferredWidth(90);
-            tbPedido.getColumnModel().getColumn(0).setMaxWidth(90);
-            tbPedido.getColumnModel().getColumn(1).setMinWidth(60);
-            tbPedido.getColumnModel().getColumn(1).setPreferredWidth(60);
-            tbPedido.getColumnModel().getColumn(1).setMaxWidth(60);
-            tbPedido.getColumnModel().getColumn(3).setMinWidth(130);
-            tbPedido.getColumnModel().getColumn(3).setPreferredWidth(130);
-            tbPedido.getColumnModel().getColumn(3).setMaxWidth(130);
-            tbPedido.getColumnModel().getColumn(5).setMinWidth(90);
-            tbPedido.getColumnModel().getColumn(5).setPreferredWidth(90);
-            tbPedido.getColumnModel().getColumn(5).setMaxWidth(90);
-        }
 
         btnAdicionarPedido.setText("Adicionar Pedido");
         btnAdicionarPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -286,34 +200,40 @@ public class ViewPedido extends javax.swing.JFrame {
             }
         });
 
+        btnConsultarPedidos.setText("Consultar Pedidos");
+        btnConsultarPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarPedidosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelBotoesLayout = new javax.swing.GroupLayout(panelBotoes);
         panelBotoes.setLayout(panelBotoesLayout);
         panelBotoesLayout.setHorizontalGroup(
             panelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBotoesLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(panelBotoesLayout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addComponent(btnAdicionarPedido)
-                .addGap(18, 18, 18)
-                .addComponent(btnRemoverPedido)
+                .addContainerGap()
+                .addComponent(btnAdicionarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(btnConsultarPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSairCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74))
+                .addGap(34, 34, 34))
         );
         panelBotoesLayout.setVerticalGroup(
             panelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBotoesLayout.createSequentialGroup()
-                .addGroup(panelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdicionarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRemoverPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSairCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(panelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBotoesLayout.createSequentialGroup()
+                        .addGroup(panelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAdicionarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSairCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnConsultarPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -323,18 +243,18 @@ public class ViewPedido extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(panelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(panelCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(panelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(panelCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -342,61 +262,9 @@ public class ViewPedido extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRemoverPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverPedidoActionPerformed
-        // Remove a pedido indicada ao pressionar o botao Remover Pedido.
-        if (tbPedido.getSelectedRow() != -1) {
-            // Criando uma modificação para o MessageDIalog de aviso
-            JFrame frame = new JFrame();
-            String[] opcoesSMD = new String[2];
-            opcoesSMD[0] = new String("Sim");
-            opcoesSMD[1] = new String("Não");
-            // Exibe o aviso e captura a resposta na variavel 'escolha'
-            int escolha = JOptionPane.showOptionDialog(
-                    frame.getContentPane(),
-                    "O pedido selecionada sera removido!!!",
-                    "AVISO",
-                    0,
-                    JOptionPane.WARNING_MESSAGE,
-                    null,
-                    opcoesSMD,
-                    null);
-
-            // Caso escolher opção "Sim", removerá a pedido selecionado da tabela
-            if (escolha == JOptionPane.YES_OPTION) {
-
-                // instanciando 'Pedido' e 'PedidoDAO'
-                Pedido objpedido = new Pedido();
-                PedidoDAO dao = new PedidoDAO();
-
-                objpedido.setID((int) tbPedido.getValueAt(tbPedido.getSelectedRow(), 0));
-
-                // Remove a pedido selecionado
-                dao.delete(objpedido);
-                readJTable();
-                // Caso escolhar opçao "Não", nada sera alterado
-            } else if (escolha == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Nada foi alterado.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione uma pedido para remover");
-        }
-    }//GEN-LAST:event_btnRemoverPedidoActionPerformed
-
     private void btnSairCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairCadastroActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSairCadastroActionPerformed
-
-    private void tbPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPedidoMouseClicked
-
-    }//GEN-LAST:event_tbPedidoMouseClicked
-
-    private void tbPedidoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPedidoMouseReleased
-        btnAdicionarPedido.setEnabled(false);
-        btnRemoverPedido.setEnabled(true);
-    }//GEN-LAST:event_tbPedidoMouseReleased
-
-    private void tbPedidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbPedidoKeyReleased
-    }//GEN-LAST:event_tbPedidoKeyReleased
 
     private void btnAdicionarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarPedidoActionPerformed
 
@@ -414,7 +282,6 @@ public class ViewPedido extends javax.swing.JFrame {
             objpedido.setValor(Integer.parseInt(lblValor.getText()));
 
             pedidodao.create(objpedido);
-            readJTable();
         } else {
             JOptionPane.showMessageDialog(null, "Algum dado não foi informado!");
         }
@@ -429,8 +296,6 @@ public class ViewPedido extends javax.swing.JFrame {
 
     private void btnProcurarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarClienteActionPerformed
         btnAdicionarPedido.setEnabled(true);
-        btnRemoverPedido.setEnabled(false);
-        tbPedido.clearSelection();
         PedidoDAO pedidodao = new PedidoDAO();
         Pedido objpedido = new Pedido();
 
@@ -447,8 +312,7 @@ public class ViewPedido extends javax.swing.JFrame {
 
     private void btnProcurarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarItemActionPerformed
         btnAdicionarPedido.setEnabled(true);
-        btnRemoverPedido.setEnabled(false);
-        tbPedido.clearSelection();
+
         PedidoDAO pedidodao = new PedidoDAO();
         Pedido objpedido = new Pedido();
 
@@ -471,6 +335,12 @@ public class ViewPedido extends javax.swing.JFrame {
     private void cbCPFClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCPFClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCPFClienteActionPerformed
+
+    private void btnConsultarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarPedidosActionPerformed
+        ConsultaPedidos conspedido = new ConsultaPedidos();
+        conspedido.setVisible(true);
+        conspedido.readJTable();
+    }//GEN-LAST:event_btnConsultarPedidosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -510,14 +380,13 @@ public class ViewPedido extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarPedido;
+    private javax.swing.JButton btnConsultarPedidos;
     private javax.swing.JButton btnProcurarCliente;
     private javax.swing.JButton btnProcurarItem;
-    private javax.swing.JButton btnRemoverPedido;
     private javax.swing.JButton btnSairCadastro;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<Object> cbCPFCliente;
     private javax.swing.JComboBox<Object> cbIDItem;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNomeCliente;
     private javax.swing.JLabel lblNomeItem;
     private javax.swing.JLabel lblVISUALITEM;
@@ -528,6 +397,5 @@ public class ViewPedido extends javax.swing.JFrame {
     private javax.swing.JLabel lblVisualCPFCliente;
     private javax.swing.JPanel panelBotoes;
     private javax.swing.JPanel panelCampos;
-    private javax.swing.JTable tbPedido;
     // End of variables declaration//GEN-END:variables
 }

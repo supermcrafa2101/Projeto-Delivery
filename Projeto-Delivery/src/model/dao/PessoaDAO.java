@@ -35,6 +35,9 @@ public class PessoaDAO {
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
 
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            JOptionPane.showMessageDialog(null, "O CPF inserido já foi cadastrado!");
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar: " + ex);
 
@@ -140,7 +143,7 @@ public class PessoaDAO {
 
         return listPessoa;
     }
-    
+
     public List<Pessoa> readCPF(String CPF) {
         // Abrindo conexao e preparando o mysql
         Connection con = ConnectionFactory.getConnection();
@@ -178,6 +181,5 @@ public class PessoaDAO {
 
         return listPessoa;
     }
-
 
 }
