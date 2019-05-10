@@ -10,7 +10,6 @@ import model.dao.PessoaDAO;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.bean.ValidaCPF;
-import static model.bean.ValidaCPF.isCPF;
 
 public class ViewGerenPessoa extends javax.swing.JFrame {
 
@@ -32,7 +31,21 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
 
         usudao.read().forEach((objPessoa) -> {
             modelo.addRow(new Object[]{
-                objPessoa.getID(),
+                objPessoa.getNome(),
+                objPessoa.getCPF(),
+                objPessoa.getEndereco(),
+                objPessoa.getTelefone()});
+        });
+    }
+
+    public void readJTableCPF(String CPF) {
+
+        DefaultTableModel modelo = (DefaultTableModel) tbRegistros.getModel();
+        modelo.setNumRows(0);
+        PessoaDAO usudao = new PessoaDAO();
+
+        usudao.readCPF(CPF).forEach((objPessoa) -> {
+            modelo.addRow(new Object[]{
                 objPessoa.getNome(),
                 objPessoa.getCPF(),
                 objPessoa.getEndereco(),
@@ -63,11 +76,15 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
         panelBotoes = new javax.swing.JPanel();
         btnRemoverClienteCadastro = new javax.swing.JButton();
         btnSairCadastro = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbRegistros = new javax.swing.JTable();
         btnAtualizarCadastro = new javax.swing.JButton();
         btnAdicionarClienteCadastro = new javax.swing.JButton();
         btnVoltarCadastro = new javax.swing.JButton();
+        lblPesquisarCPF = new javax.swing.JLabel();
+        txtPesquisaCPF = new javax.swing.JFormattedTextField();
+        btnPesquisarCPF = new javax.swing.JButton();
+        btnLimparPesquisa = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbRegistros = new javax.swing.JTable();
         btnLimparCampos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -195,19 +212,68 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
             }
         });
 
+        btnAtualizarCadastro.setText("Atualizar");
+        btnAtualizarCadastro.setEnabled(false);
+        btnAtualizarCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarCadastroActionPerformed(evt);
+            }
+        });
+
+        btnAdicionarClienteCadastro.setText("Adicionar Cliente");
+        btnAdicionarClienteCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarClienteCadastroActionPerformed(evt);
+            }
+        });
+
+        btnVoltarCadastro.setText("Voltar");
+        btnVoltarCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarCadastroActionPerformed(evt);
+            }
+        });
+
+        lblPesquisarCPF.setText("Procurar por CPF :");
+
+        try {
+            txtPesquisaCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtPesquisaCPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesquisaCPFActionPerformed(evt);
+            }
+        });
+
+        btnPesquisarCPF.setText("Procurar");
+        btnPesquisarCPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarCPFActionPerformed(evt);
+            }
+        });
+
+        btnLimparPesquisa.setText("Limpar Pesquisa");
+        btnLimparPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparPesquisaActionPerformed(evt);
+            }
+        });
+
         tbRegistros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nome", "CPF", "Endereco", "Telefone"
+                "Nome", "CPF", "Endereco", "Telefone"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -232,57 +298,36 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tbRegistros);
-        if (tbRegistros.getColumnModel().getColumnCount() > 0) {
-            tbRegistros.getColumnModel().getColumn(0).setMinWidth(30);
-            tbRegistros.getColumnModel().getColumn(0).setPreferredWidth(30);
-            tbRegistros.getColumnModel().getColumn(0).setMaxWidth(40);
-            tbRegistros.getColumnModel().getColumn(2).setMinWidth(120);
-            tbRegistros.getColumnModel().getColumn(2).setPreferredWidth(120);
-            tbRegistros.getColumnModel().getColumn(2).setMaxWidth(120);
-            tbRegistros.getColumnModel().getColumn(4).setMinWidth(120);
-            tbRegistros.getColumnModel().getColumn(4).setPreferredWidth(120);
-            tbRegistros.getColumnModel().getColumn(4).setMaxWidth(120);
-        }
-
-        btnAtualizarCadastro.setText("Atualizar");
-        btnAtualizarCadastro.setEnabled(false);
-        btnAtualizarCadastro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarCadastroActionPerformed(evt);
-            }
-        });
-
-        btnAdicionarClienteCadastro.setText("Adicionar Cliente");
-        btnAdicionarClienteCadastro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarClienteCadastroActionPerformed(evt);
-            }
-        });
-
-        btnVoltarCadastro.setText("Voltar");
-        btnVoltarCadastro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarCadastroActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelBotoesLayout = new javax.swing.GroupLayout(panelBotoes);
         panelBotoes.setLayout(panelBotoesLayout);
         panelBotoesLayout.setHorizontalGroup(
             panelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBotoesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblPesquisarCPF)
+                .addGap(18, 18, 18)
+                .addComponent(txtPesquisaCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnPesquisarCPF)
+                .addGap(18, 18, 18)
+                .addComponent(btnLimparPesquisa)
+                .addGap(120, 120, 120))
             .addGroup(panelBotoesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAtualizarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnAdicionarClienteCadastro)
-                .addGap(18, 18, 18)
-                .addComponent(btnRemoverClienteCadastro)
-                .addGap(18, 18, 18)
-                .addComponent(btnVoltarCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSairCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBotoesLayout.createSequentialGroup()
+                        .addComponent(btnAtualizarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAdicionarClienteCadastro)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRemoverClienteCadastro)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnVoltarCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSairCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
-            .addComponent(jScrollPane1)
         );
         panelBotoesLayout.setVerticalGroup(
             panelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,9 +338,14 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
                     .addComponent(btnRemoverClienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSairCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addGroup(panelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPesquisarCPF)
+                    .addComponent(txtPesquisaCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisarCPF)
+                    .addComponent(btnLimparPesquisa))
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
         );
 
         btnLimparCampos.setText("Limpar");
@@ -323,15 +373,13 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(panelCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)))
-                .addComponent(panelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimparCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(panelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -420,7 +468,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
                 Pessoa objPessoa = new Pessoa();
                 PessoaDAO dao = new PessoaDAO();
 
-                objPessoa.setID((int) tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 0));
+                objPessoa.setCPF((String) tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 1));
 
                 dao.delete(objPessoa);
                 readJTable();
@@ -459,10 +507,6 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefoneActionPerformed
 
-    private void tbRegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbRegistrosMouseClicked
-
-    }//GEN-LAST:event_tbRegistrosMouseClicked
-
     private void btnAtualizarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarCadastroActionPerformed
         if ((tbRegistros.getSelectedRow()) != -1) {
             Pessoa objPessoa = new Pessoa();
@@ -484,7 +528,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
                 objPessoa.setCPF(txtCPF.getText());
                 objPessoa.setEndereco(txtEndereco.getText());
                 objPessoa.setTelefone(txtTelefone.getText());
-                objPessoa.setID((int) tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 0));
+//                objPessoa.setID((int) tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 0));
 
                 dao.update(objPessoa);
 
@@ -508,30 +552,6 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnAtualizarCadastroActionPerformed
 
-    private void tbRegistrosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbRegistrosKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tbRegistrosKeyReleased
-
-    private void tbRegistrosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbRegistrosMouseReleased
-
-        // Verifica se alguma linha foi selecionada
-        if ((tbRegistros.getSelectedRow()) != -1) {
-            btnAtualizarCadastro.setEnabled(true);
-            btnRemoverClienteCadastro.setEnabled(true);
-            btnAdicionarClienteCadastro.setEnabled(false);
-
-            txtNome.setText(
-                    tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 1).toString());
-            txtCPF.setText(
-                    tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 2).toString());
-            txtEndereco.setText(
-                    tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 3).toString());
-            txtTelefone.setText(
-                    tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 4).toString());
-
-        }
-    }//GEN-LAST:event_tbRegistrosMouseReleased
-
     private void btnVoltarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroActionPerformed
         this.dispose();
         ViewPaginaInicial inicio = new ViewPaginaInicial();
@@ -549,6 +569,55 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
             lblValidacaoCPF.setText("CPF Invalido");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtPesquisaCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaCPFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesquisaCPFActionPerformed
+
+    private void btnPesquisarCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarCPFActionPerformed
+        readJTableCPF(txtPesquisaCPF.getText());
+        System.out.println(txtPesquisaCPF.getText());
+    }//GEN-LAST:event_btnPesquisarCPFActionPerformed
+
+    private void btnLimparPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparPesquisaActionPerformed
+        btnAdicionarClienteCadastro.setEnabled(true);
+        btnAtualizarCadastro.setEnabled(false);
+        btnRemoverClienteCadastro.setEnabled(false);
+        txtNome.setText("");
+        txtCPF.setText("");
+        txtEndereco.setText("");
+        txtTelefone.setText("");
+        txtPesquisaCPF.setText("");
+        readJTable();
+    }//GEN-LAST:event_btnLimparPesquisaActionPerformed
+
+    private void tbRegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbRegistrosMouseClicked
+
+    }//GEN-LAST:event_tbRegistrosMouseClicked
+
+    private void tbRegistrosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbRegistrosMouseReleased
+
+        // Verifica se alguma linha foi selecionada
+        if ((tbRegistros.getSelectedRow()) != -1) {
+            btnAtualizarCadastro.setEnabled(true);
+            btnRemoverClienteCadastro.setEnabled(true);
+            btnAdicionarClienteCadastro.setEnabled(false);
+
+            txtNome.setText(
+                tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 0).toString());
+            txtCPF.setText(
+                tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 1).toString());
+            txtEndereco.setText(
+                tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 2).toString());
+            txtTelefone.setText(
+                tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 3).toString());
+
+        }
+    }//GEN-LAST:event_tbRegistrosMouseReleased
+
+    private void tbRegistrosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbRegistrosKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbRegistrosKeyReleased
 
     /**
      * @param args the command line arguments
@@ -580,7 +649,6 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ViewGerenPessoa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -589,10 +657,13 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarClienteCadastro;
     private javax.swing.JButton btnAtualizarCadastro;
     private javax.swing.JButton btnLimparCampos;
+    private javax.swing.JButton btnLimparPesquisa;
+    private javax.swing.JButton btnPesquisarCPF;
     private javax.swing.JButton btnRemoverClienteCadastro;
     private javax.swing.JButton btnSairCadastro;
     private javax.swing.JButton btnVoltarCadastro;
@@ -601,6 +672,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblEndereco;
     private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblPesquisarCPF;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblValidacaoCPF;
     private javax.swing.JPanel panelBotoes;
@@ -609,6 +681,8 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtCPF;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JFormattedTextField txtPesquisaCPF;
     private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
+        //</editor-fold>
 }

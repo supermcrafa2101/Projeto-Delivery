@@ -7,7 +7,6 @@ package model.bean;
 public class Pedido {
 
     private int ID;
-    private int IDCliente;
     private int IDItem;
     private String NomeCliente;
     private String NomeItem;
@@ -20,14 +19,6 @@ public class Pedido {
 
     public void setID(int ID) {
         this.ID = ID;
-    }
-
-    public int getIDCliente() {
-        return IDCliente;
-    }
-
-    public void setIDCliente(int IDCliente) {
-        this.IDCliente = IDCliente;
     }
 
     public int getIDItem() {

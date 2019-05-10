@@ -39,7 +39,7 @@ public class ViewPedido extends javax.swing.JFrame {
         ProdutoDAO produtodao = new ProdutoDAO();
 
         for (Pessoa people : pessoadao.read()) {
-            cbIDCliente.addItem(people.toInt());
+            cbCPFCliente.addItem(people.toString());
         }
 
         for (Produto product : produtodao.read()) {
@@ -61,7 +61,6 @@ public class ViewPedido extends javax.swing.JFrame {
         usudao.read().forEach((objpedido) -> {
             modelo.addRow(new Object[]{
                 objpedido.getID(),
-                objpedido.getIDCliente(),
                 objpedido.getIDItem(),
                 objpedido.getNomeCliente(),
                 objpedido.getCPFCliente(),
@@ -80,14 +79,12 @@ public class ViewPedido extends javax.swing.JFrame {
     private void initComponents() {
 
         panelCampos = new javax.swing.JPanel();
-        lblVISUALIDCLIENTE = new javax.swing.JLabel();
+        lblVisualCPFCliente = new javax.swing.JLabel();
         lblVISUALITEM = new javax.swing.JLabel();
-        cbIDCliente = new javax.swing.JComboBox<>();
+        cbCPFCliente = new javax.swing.JComboBox<>();
         cbIDItem = new javax.swing.JComboBox<>();
-        lblVISUALCPF = new javax.swing.JLabel();
         lblNomeCliente = new javax.swing.JLabel();
         lblVISUALNOMECLIENTE = new javax.swing.JLabel();
-        lblCPFCliente = new javax.swing.JLabel();
         lblVISUALNOMEITEM = new javax.swing.JLabel();
         lblNomeItem = new javax.swing.JLabel();
         lblVISUALVALOR = new javax.swing.JLabel();
@@ -106,9 +103,15 @@ public class ViewPedido extends javax.swing.JFrame {
 
         panelCampos.setBorder(javax.swing.BorderFactory.createTitledBorder("Gerenciar Pedidos"));
 
-        lblVISUALIDCLIENTE.setText("ID Cliente");
+        lblVisualCPFCliente.setText("CPF Cliente");
 
         lblVISUALITEM.setText("Item");
+
+        cbCPFCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCPFClienteActionPerformed(evt);
+            }
+        });
 
         cbIDItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,13 +119,9 @@ public class ViewPedido extends javax.swing.JFrame {
             }
         });
 
-        lblVISUALCPF.setText("CPF:");
-
         lblNomeCliente.setText("...");
 
         lblVISUALNOMECLIENTE.setText("Nome:");
-
-        lblCPFCliente.setText("...");
 
         lblVISUALNOMEITEM.setText("Nome:");
 
@@ -153,49 +152,41 @@ public class ViewPedido extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCamposLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblVISUALIDCLIENTE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblVisualCPFCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblVISUALITEM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cbIDCliente, 0, 64, Short.MAX_VALUE)
-                    .addComponent(cbIDItem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCamposLayout.createSequentialGroup()
-                        .addComponent(btnProcurarCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                        .addComponent(lblVISUALNOMECLIENTE, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(panelCamposLayout.createSequentialGroup()
+                        .addComponent(cbIDItem, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnProcurarItem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                         .addComponent(lblVISUALNOMEITEM, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCamposLayout.createSequentialGroup()
-                        .addComponent(lblNomeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(lblVISUALCPF))
-                    .addGroup(panelCamposLayout.createSequentialGroup()
                         .addComponent(lblNomeItem, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblVISUALVALOR)))
-                .addGap(18, 18, 18)
-                .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addComponent(lblVISUALVALOR)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelCamposLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(cbCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnProcurarCliente)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblVISUALNOMECLIENTE, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(lblNomeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)))
+                .addGap(66, 66, 66))
         );
         panelCamposLayout.setVerticalGroup(
             panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCamposLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblVISUALIDCLIENTE, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbIDCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblVISUALCPF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblVisualCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNomeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblCPFCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblVISUALNOMECLIENTE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnProcurarCliente))
                 .addGap(28, 28, 28)
@@ -233,14 +224,14 @@ public class ViewPedido extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "IDCliente", "IDItem", "NomeCliente", "CPFCliente", "NomeItem", "Valor"
+                "ID Pedido", "IDItem", "NomeCliente", "CPFCliente", "NomeItem", "Valor"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -267,21 +258,18 @@ public class ViewPedido extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbPedido);
         if (tbPedido.getColumnModel().getColumnCount() > 0) {
-            tbPedido.getColumnModel().getColumn(0).setMinWidth(30);
-            tbPedido.getColumnModel().getColumn(0).setPreferredWidth(30);
-            tbPedido.getColumnModel().getColumn(0).setMaxWidth(30);
-            tbPedido.getColumnModel().getColumn(1).setMinWidth(80);
-            tbPedido.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tbPedido.getColumnModel().getColumn(1).setMaxWidth(80);
-            tbPedido.getColumnModel().getColumn(2).setMinWidth(60);
-            tbPedido.getColumnModel().getColumn(2).setPreferredWidth(60);
-            tbPedido.getColumnModel().getColumn(2).setMaxWidth(60);
-            tbPedido.getColumnModel().getColumn(4).setMinWidth(130);
-            tbPedido.getColumnModel().getColumn(4).setPreferredWidth(130);
-            tbPedido.getColumnModel().getColumn(4).setMaxWidth(130);
-            tbPedido.getColumnModel().getColumn(6).setMinWidth(90);
-            tbPedido.getColumnModel().getColumn(6).setPreferredWidth(90);
-            tbPedido.getColumnModel().getColumn(6).setMaxWidth(90);
+            tbPedido.getColumnModel().getColumn(0).setMinWidth(90);
+            tbPedido.getColumnModel().getColumn(0).setPreferredWidth(90);
+            tbPedido.getColumnModel().getColumn(0).setMaxWidth(90);
+            tbPedido.getColumnModel().getColumn(1).setMinWidth(60);
+            tbPedido.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tbPedido.getColumnModel().getColumn(1).setMaxWidth(60);
+            tbPedido.getColumnModel().getColumn(3).setMinWidth(130);
+            tbPedido.getColumnModel().getColumn(3).setPreferredWidth(130);
+            tbPedido.getColumnModel().getColumn(3).setMaxWidth(130);
+            tbPedido.getColumnModel().getColumn(5).setMinWidth(90);
+            tbPedido.getColumnModel().getColumn(5).setPreferredWidth(90);
+            tbPedido.getColumnModel().getColumn(5).setMaxWidth(90);
         }
 
         btnAdicionarPedido.setText("Adicionar Pedido");
@@ -404,6 +392,7 @@ public class ViewPedido extends javax.swing.JFrame {
 
     private void tbPedidoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPedidoMouseReleased
         btnAdicionarPedido.setEnabled(false);
+        btnRemoverPedido.setEnabled(true);
     }//GEN-LAST:event_tbPedidoMouseReleased
 
     private void tbPedidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbPedidoKeyReleased
@@ -414,15 +403,13 @@ public class ViewPedido extends javax.swing.JFrame {
         PedidoDAO pedidodao = new PedidoDAO();
         Pedido objpedido = new Pedido();
 
-        if (!"".equals(lblCPFCliente.getText())
-                || !"".equals(lblValor.getText())
+        if (!"".equals(lblValor.getText())
                 || !"".equals(lblNomeCliente.getText())
                 || !"".equals(lblNomeItem.getText())) {
 
-            objpedido.setIDCliente((int) cbIDCliente.getSelectedItem());
             objpedido.setIDItem((int) cbIDItem.getSelectedItem());
             objpedido.setNomeCliente(lblNomeCliente.getText());
-            objpedido.setCPFCliente(lblCPFCliente.getText());
+            objpedido.setCPFCliente((String) cbCPFCliente.getSelectedItem());
             objpedido.setNomeItem(lblNomeItem.getText());
             objpedido.setValor(Integer.parseInt(lblValor.getText()));
 
@@ -442,25 +429,25 @@ public class ViewPedido extends javax.swing.JFrame {
 
     private void btnProcurarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarClienteActionPerformed
         btnAdicionarPedido.setEnabled(true);
+        btnRemoverPedido.setEnabled(false);
         tbPedido.clearSelection();
         PedidoDAO pedidodao = new PedidoDAO();
         Pedido objpedido = new Pedido();
 
-        objpedido.setIDCliente((int) cbIDCliente.getSelectedItem());
+        objpedido.setCPFCliente((String) cbCPFCliente.getSelectedItem());
 
         objpedido.setNomeCliente(objpedido.getNomeCliente());
         objpedido.setCPFCliente(objpedido.getCPFCliente());
 
         pedidodao.searchPessoaNome(objpedido);
-        pedidodao.searchCPF(objpedido);
 
         lblNomeCliente.setText(objpedido.getNomeCliente());
-        lblCPFCliente.setText(objpedido.getCPFCliente());
 
     }//GEN-LAST:event_btnProcurarClienteActionPerformed
 
     private void btnProcurarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarItemActionPerformed
         btnAdicionarPedido.setEnabled(true);
+        btnRemoverPedido.setEnabled(false);
         tbPedido.clearSelection();
         PedidoDAO pedidodao = new PedidoDAO();
         Pedido objpedido = new Pedido();
@@ -480,6 +467,10 @@ public class ViewPedido extends javax.swing.JFrame {
     private void cbIDItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbIDItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbIDItemActionPerformed
+
+    private void cbCPFClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCPFClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCPFClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -524,19 +515,17 @@ public class ViewPedido extends javax.swing.JFrame {
     private javax.swing.JButton btnRemoverPedido;
     private javax.swing.JButton btnSairCadastro;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JComboBox<Object> cbIDCliente;
+    private javax.swing.JComboBox<Object> cbCPFCliente;
     private javax.swing.JComboBox<Object> cbIDItem;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblCPFCliente;
     private javax.swing.JLabel lblNomeCliente;
     private javax.swing.JLabel lblNomeItem;
-    private javax.swing.JLabel lblVISUALCPF;
-    private javax.swing.JLabel lblVISUALIDCLIENTE;
     private javax.swing.JLabel lblVISUALITEM;
     private javax.swing.JLabel lblVISUALNOMECLIENTE;
     private javax.swing.JLabel lblVISUALNOMEITEM;
     private javax.swing.JLabel lblVISUALVALOR;
     private javax.swing.JLabel lblValor;
+    private javax.swing.JLabel lblVisualCPFCliente;
     private javax.swing.JPanel panelBotoes;
     private javax.swing.JPanel panelCampos;
     private javax.swing.JTable tbPedido;

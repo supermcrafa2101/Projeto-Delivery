@@ -2,7 +2,6 @@ package model.dao;
 
 import connection.ConnectionFactory;
 import model.bean.Pessoa;
-import connection.*;
 import java.sql.*;
 import javax.swing.*;
 import java.util.*;
@@ -57,17 +56,15 @@ public class PessoaDAO {
                     "UPDATE Pessoa "
                     + "SET "
                     + "Nome = ?,"
-                    + "CPF = ?,"
                     + "Endereco = ?,"
                     + "Telefone = ? "
-                    + "WHERE ID = ?");
+                    + "WHERE CPF = ?");
             // (X,Y) Sendo x a posição da coluna na tabela e
             //             y o valor indicado no campo
             stmt.setString(1, objPessoa.getNome());
-            stmt.setString(2, objPessoa.getCPF());
-            stmt.setString(3, objPessoa.getEndereco());
-            stmt.setString(4, objPessoa.getTelefone());
-            stmt.setInt(5, objPessoa.getID());
+            stmt.setString(2, objPessoa.getEndereco());
+            stmt.setString(3, objPessoa.getTelefone());
+            stmt.setString(4, objPessoa.getCPF());
 
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
@@ -91,8 +88,8 @@ public class PessoaDAO {
         try {
             // Codigo que sera executado em sql
             stmt = con.prepareStatement(
-                    "DELETE FROM Pessoa WHERE ID = ?");
-            stmt.setInt(1, objPessoa.getID());
+                    "DELETE FROM Pessoa WHERE CPF = ?");
+            stmt.setString(1, objPessoa.getCPF());
 
             stmt.executeUpdate();
 
@@ -125,8 +122,44 @@ public class PessoaDAO {
                 Pessoa objPessoa = new Pessoa();
 
                 // Adicionando os valores de cada coluna de cada endereço
-                // objPessoa.setID(rs.getInt("ID"));
-                objPessoa.setID(rs.getInt("ID"));
+                objPessoa.setNome(rs.getString("Nome"));
+                objPessoa.setCPF(rs.getString("CPF"));
+                objPessoa.setEndereco(rs.getString("Endereco"));
+                objPessoa.setTelefone(rs.getString("Telefone"));
+
+                listPessoa.add(objPessoa);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaDAO.class.getName()).
+                    log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+
+        return listPessoa;
+    }
+    
+    public List<Pessoa> readCPF(String CPF) {
+        // Abrindo conexao e preparando o mysql
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<Pessoa> listPessoa = new ArrayList<>();
+
+        try {
+            // Comando mysql para pegar todos os registros/linhas
+            stmt = con.prepareStatement("SELECT * FROM Pessoa WHERE CPF = ?");
+            stmt.setString(1, CPF);
+            rs = stmt.executeQuery();
+            // Enquanto houver conteudo na lista,adicionara em 'rs'
+            while (rs.next()) {
+
+                Pessoa objPessoa = new Pessoa();
+
+//                objPessoa.setID(rs.getInt("ID"));
                 objPessoa.setNome(rs.getString("Nome"));
                 objPessoa.setCPF(rs.getString("CPF"));
                 objPessoa.setEndereco(rs.getString("Endereco"));

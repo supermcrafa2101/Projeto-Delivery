@@ -2,19 +2,10 @@ package model.bean;
 
 public class Pessoa {
 
-    private int ID;
     private String Nome;
     private String CPF;
     private String Endereco;
     private String Telefone;
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
 
     public String getNome() {
         return Nome;
@@ -48,16 +39,9 @@ public class Pessoa {
         this.Telefone = Telefone;
     }
 
-    public int toInt() {
-        return getID();
-    }
-
     @Override
     public String toString() {
-        return getNome();
+        return getCPF();
     }
-
-    
-
 
 }

@@ -23,16 +23,15 @@ public class PedidoDAO {
 
         try {
             stmt = con.prepareStatement("INSERT INTO pedido "
-                    + "(IDCliente,IDItem,NomeCliente,NomeItem,Valor,CPFCliente) "
+                    + "(IDItem,NomeCliente,NomeItem,Valor,CPFCliente) "
                     + "VALUES "
-                    + "(?,?,?,?,?,?)");
+                    + "(?,?,?,?,?)");
 
-            stmt.setInt(1, objpedido.getIDCliente());
-            stmt.setInt(2, objpedido.getIDItem());
-            stmt.setString(3, objpedido.getNomeCliente());
-            stmt.setString(4, objpedido.getNomeItem());
-            stmt.setInt(5, objpedido.getValor());
-            stmt.setString(6, objpedido.getCPFCliente());
+            stmt.setInt(1, objpedido.getIDItem());
+            stmt.setString(2, objpedido.getNomeCliente());
+            stmt.setString(3, objpedido.getNomeItem());
+            stmt.setInt(4, objpedido.getValor());
+            stmt.setString(5, objpedido.getCPFCliente());
 
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Salvo com sucesso");
@@ -65,7 +64,6 @@ public class PedidoDAO {
 
                 // Adicionando os valores de cada coluna de cada endereço
                 objpedido.setID(rs.getInt("ID"));
-                objpedido.setIDCliente(rs.getInt("IDCliente"));
                 objpedido.setIDItem(rs.getInt("IDItem"));
                 objpedido.setNomeCliente(rs.getString("NomeCliente"));
                 objpedido.setCPFCliente(rs.getString("CPFCliente"));
@@ -118,8 +116,8 @@ public class PedidoDAO {
         ResultSet rs = null;
 
         try {
-            stmt = con.prepareStatement("SELECT Nome FROM Pessoa WHERE ID = ?");
-            stmt.setInt(1, objpedido.getIDCliente());
+            stmt = con.prepareStatement("SELECT Nome FROM Pessoa WHERE CPF = ?");
+            stmt.setString(1, (objpedido.getCPFCliente()));
             rs = stmt.executeQuery();
             while (rs.next()) {
                 objpedido.setNomeCliente(rs.getString("Nome"));
@@ -132,26 +130,6 @@ public class PedidoDAO {
         }
     }
 
-    public void searchCPF(Pedido objpedido) {
-        Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        try {
-
-            stmt = con.prepareStatement("SELECT CPF FROM Pessoa WHERE ID = ?");
-            stmt.setInt(1, objpedido.getIDCliente());
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                objpedido.setCPFCliente(rs.getString("CPF"));
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao procurar: " + ex);
-
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs);
-        }
-    }
 
     public void searchProdutoNome(Pedido objpedido) {
         Connection con = ConnectionFactory.getConnection();
