@@ -270,6 +270,8 @@ public class ViewConsultaPedidos extends javax.swing.JFrame {
         notafiscal.setCPFCliente(objPedido.getCPFCliente());
         notafiscal.setNomeItem(objPedido.getNomeItem());
         notafiscal.setValorTotal(objPedido.getValor());
+        notafiscal.setEndereco(objPedido.getEndereco());
+        notafiscal.setTelefone(objPedido.getTelefone());
         
 
         ViewNotaFiscal janelanotafiscal = new ViewNotaFiscal(notafiscal);

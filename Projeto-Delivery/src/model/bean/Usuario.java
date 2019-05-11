@@ -7,17 +7,10 @@ package model.bean;
  */
 public class Usuario {
     
-    private int ID;
     private String login;
     private String senha;
-
-    public int getId() {
-        return ID;
-    }
-
-    public void setId(int ID) {
-        this.ID = ID;
-    }
+    private String NomeCompleto;
+    private String CPFUsuario;
 
     public String getLogin() {
         return login;
@@ -34,7 +27,20 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    
+    public String getNomeCompleto() {
+        return NomeCompleto;
+    }
+
+    public void setNomeCompleto(String NomeCompleto) {
+        this.NomeCompleto = NomeCompleto;
+    }
+
+    public String getCPFUsuario() {
+        return CPFUsuario;
+    }
+
+    public void setCPFUsuario(String CPFUsuario) {
+        this.CPFUsuario = CPFUsuario;
+    }
     
 }

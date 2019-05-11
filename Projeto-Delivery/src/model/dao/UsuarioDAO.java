@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,7 +22,7 @@ import model.bean.Usuario;
  */
 public class UsuarioDAO {
 
-    public boolean checarLogin(String login, String senha) {
+    public boolean checarLogin(String login, String senha, Usuario funcionario) {
         // Abrindo conexao e preparando o mysql
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -40,6 +41,14 @@ public class UsuarioDAO {
 
             }
 
+            stmt = con.prepareStatement("Select NomeCompleto From Login WHERE login = ?");
+            stmt.setString(1, login);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                funcionario.setNomeCompleto(rs.getString("NomeCompleto"));
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(PessoaDAO.class.getName()).
                     log(Level.SEVERE, null, ex);
@@ -54,20 +63,36 @@ public class UsuarioDAO {
 
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
-
+        ResultSet rs = null;
+        String loginusado = "";
         try {
-            stmt = con.prepareStatement(
-                    "INSERT INTO Login "
-                    + "(login, senha) "
-                    + "VALUES "
-                    + "(?,?)"
-            );
+            stmt = con.prepareStatement("Select * from Login where login = ?");
             stmt.setString(1, novoUsuario.getLogin());
-            stmt.setString(2, novoUsuario.getSenha());
-            stmt.executeUpdate();
-            
-            JOptionPane.showMessageDialog(null, "Usuario registrado com sucesso!");
+            rs = stmt.executeQuery();
 
+            if (rs.next()) {
+                loginusado = (rs.getString("login"));
+            }
+            System.out.println(loginusado);
+            if ("".equals(loginusado)) {
+                stmt = con.prepareStatement(
+                        "INSERT INTO Login "
+                        + "(login, senha, NomeCompleto, CPFUsuario) "
+                        + "VALUES "
+                        + "(?,?,?,?)"
+                );
+                stmt.setString(1, novoUsuario.getLogin());
+                stmt.setString(2, novoUsuario.getSenha());
+                stmt.setString(3, novoUsuario.getNomeCompleto());
+                stmt.setString(4, novoUsuario.getCPFUsuario());
+                stmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Usuario registrado com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "O login ja esta em uso, escolha outro!");
+            }
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            JOptionPane.showMessageDialog(null, "O CPF inserido já foi cadastrado!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao registrar: " + ex);
         } finally {

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import model.bean.NotaFiscal;
 import model.bean.Pedido;
 import model.bean.Pessoa;
 import model.bean.Produto;

@@ -1,7 +1,6 @@
 package model.dao;
 
 import connection.ConnectionFactory;
-import connection.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

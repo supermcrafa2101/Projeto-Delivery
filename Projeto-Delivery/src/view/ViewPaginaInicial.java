@@ -5,6 +5,8 @@
  */
 package view;
 
+import model.bean.Usuario;
+
 /**
  *
  * @author rafael
@@ -18,6 +20,11 @@ public class ViewPaginaInicial extends javax.swing.JFrame {
         initComponents();
     }
 
+    public ViewPaginaInicial(Usuario funcionario){
+        initComponents();
+        lblBemVindoFuncionario.setText("Bem Vindo, "+funcionario.getNomeCompleto());
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,7 +35,7 @@ public class ViewPaginaInicial extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblBemVindo = new javax.swing.JLabel();
+        lblBemVindoFuncionario = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         btnSairInicial = new javax.swing.JButton();
         btnGerenciamentoDeClientes = new javax.swing.JButton();
@@ -37,7 +44,7 @@ public class ViewPaginaInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblBemVindo.setText("Bem Vindo");
+        lblBemVindoFuncionario.setText("Bem Vindo, ");
 
         btnLogout.setText("Mudar de Usuario");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -89,7 +96,7 @@ public class ViewPaginaInicial extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSairInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblBemVindo)
+                        .addComponent(lblBemVindoFuncionario)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -97,7 +104,7 @@ public class ViewPaginaInicial extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblBemVindo)
+                .addComponent(lblBemVindoFuncionario)
                 .addGap(18, 18, 18)
                 .addComponent(btnGerenciamentoDeClientes)
                 .addGap(18, 18, 18)
@@ -136,8 +143,8 @@ public class ViewPaginaInicial extends javax.swing.JFrame {
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         this.dispose();
-        ViewLogin inicio = new ViewLogin();
-        inicio.setVisible(true);
+        ViewLogin paginaLogin = new ViewLogin();
+        paginaLogin.setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnGerenciamentoDeClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciamentoDeClientesActionPerformed
@@ -200,6 +207,6 @@ public class ViewPaginaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnSairInicial;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblBemVindo;
+    private javax.swing.JLabel lblBemVindoFuncionario;
     // End of variables declaration//GEN-END:variables
 }

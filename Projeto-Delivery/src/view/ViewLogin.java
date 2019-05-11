@@ -5,7 +5,6 @@
  */
 package view;
 
-import java.util.Set;
 import javax.swing.JOptionPane;
 import model.bean.Usuario;
 import model.dao.UsuarioDAO;
@@ -39,7 +38,7 @@ public class ViewLogin extends javax.swing.JFrame {
         btnEntrarLogin = new javax.swing.JButton();
         btnRegistrarLogin = new javax.swing.JButton();
         btnSairLogin = new javax.swing.JButton();
-        txtSenha = new javax.swing.JTextField();
+        passSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,7 +85,7 @@ public class ViewLogin extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                            .addComponent(txtSenha))))
+                            .addComponent(passSenha))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -103,7 +102,7 @@ public class ViewLogin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSenha)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEntrarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -136,12 +135,15 @@ public class ViewLogin extends javax.swing.JFrame {
     private void btnEntrarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarLoginActionPerformed
 
         UsuarioDAO dao = new UsuarioDAO();
-
-        if (dao.checarLogin(txtLogin.getText(), txtSenha.getText())) {
-            new ViewPaginaInicial().setVisible(true);
+        Usuario funcionario = new Usuario();
+        if (dao.checarLogin(txtLogin.getText(), passSenha.getText(),funcionario)) {
             this.dispose();
+            
+            ViewPaginaInicial paginainicial = new ViewPaginaInicial(funcionario);
+            paginainicial.setVisible(true);
+            
         } else {
-            JOptionPane.showMessageDialog(null, "Senha Incorreta!");
+            JOptionPane.showMessageDialog(null, "Login ou Senha Incorreta!");
         }
 
 
@@ -152,17 +154,9 @@ public class ViewLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairLoginActionPerformed
 
     private void btnRegistrarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarLoginActionPerformed
-        Usuario novousuario = new Usuario();
-        UsuarioDAO daonovousuario = new UsuarioDAO();
-
-        if ((this.txtLogin.getText().equals("")) || (this.txtSenha.getText().equals(""))) {
-            JOptionPane.showMessageDialog(null, "Os campos de Login e Senha devem ser preenchidos");
-        } else {
-            // Pegando os valores da GUI
-            novousuario.setLogin(txtLogin.getText());
-            novousuario.setSenha(txtSenha.getText());
-            daonovousuario.registrarUsuario(novousuario);
-        }
+        this.dispose();
+        ViewCadastroUsuario cadastrousuario = new ViewCadastroUsuario();
+        cadastrousuario.setVisible(true);
     }//GEN-LAST:event_btnRegistrarLoginActionPerformed
 
     /**
@@ -207,7 +201,7 @@ public class ViewLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblSenha;
+    private javax.swing.JPasswordField passSenha;
     private javax.swing.JTextField txtLogin;
-    private javax.swing.JTextField txtSenha;
     // End of variables declaration//GEN-END:variables
 }

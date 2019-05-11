@@ -68,7 +68,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
         lblEndereco = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         txtEndereco = new javax.swing.JTextField();
-        txtCPF = new javax.swing.JFormattedTextField();
+        txtCPFPessoa = new javax.swing.JFormattedTextField();
         txtTelefone = new javax.swing.JFormattedTextField();
         lblTelefone = new javax.swing.JLabel();
         lblValidacaoCPF = new javax.swing.JLabel();
@@ -111,13 +111,13 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
         });
 
         try {
-            txtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            txtCPFPessoa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtCPF.addActionListener(new java.awt.event.ActionListener() {
+        txtCPFPessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCPFActionPerformed(evt);
+                txtCPFPessoaActionPerformed(evt);
             }
         });
 
@@ -164,7 +164,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
                     .addComponent(txtTelefone)
                     .addComponent(txtEndereco)
                     .addGroup(panelCamposLayout.createSequentialGroup()
-                        .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCPFPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -183,7 +183,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
                 .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblCPF)
-                        .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCPFPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton1))
                     .addComponent(lblValidacaoCPF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
@@ -390,11 +390,11 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
         //  com os valores inseridos nos textFields ao clicar no botao Cadastrar. 
         Pessoa objPessoa = new Pessoa();
         PessoaDAO dao = new PessoaDAO();
-        String CPF = (txtCPF.getText().replace(".", ""));
+        String CPF = (txtCPFPessoa.getText().replace(".", ""));
         CPF = (CPF.replace("-", ""));
 
         if (txtNome.getText().equals("")
-                || txtCPF.getText().equals("")
+                || txtCPFPessoa.getText().equals("")
                 || txtEndereco.getText().equals("")
                 || txtTelefone.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!");
@@ -403,7 +403,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
         } else {
 
             objPessoa.setNome(txtNome.getText());
-            objPessoa.setCPF(txtCPF.getText());
+            objPessoa.setCPF(txtCPFPessoa.getText());
             objPessoa.setEndereco(txtEndereco.getText());
             objPessoa.setTelefone(txtTelefone.getText());
 
@@ -414,7 +414,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
             readJTable();
 
             txtNome.setText("");
-            txtCPF.setText("");
+            txtCPFPessoa.setText("");
             txtEndereco.setText("");
             txtTelefone.setText("");
             lblValidacaoCPF.setText("");
@@ -434,7 +434,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
         //Ao pressionar o btnLimpar todos os textFIeld serão limpados.
         txtNome.setText("");
-        txtCPF.setText("");
+        txtCPFPessoa.setText("");
         txtEndereco.setText("");
         txtTelefone.setText("");
         lblValidacaoCPF.setText("");
@@ -444,9 +444,9 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
         btnRemoverClienteCadastro.setEnabled(false);
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
-    private void txtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFActionPerformed
+    private void txtCPFPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFPessoaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCPFActionPerformed
+    }//GEN-LAST:event_txtCPFPessoaActionPerformed
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
         // TODO add your handling code here:
@@ -465,11 +465,11 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
             Pessoa objPessoa = new Pessoa();
             PessoaDAO dao = new PessoaDAO();
 
-            String CPF = (txtCPF.getText().replace(".", ""));
+            String CPF = (txtCPFPessoa.getText().replace(".", ""));
             CPF = (CPF.replace("-", ""));
 
             if (txtNome.getText().equals("")
-                    || txtCPF.getText().equals("")
+                    || txtCPFPessoa.getText().equals("")
                     || txtEndereco.getText().equals("")
                     || txtTelefone.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!");
@@ -478,7 +478,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
             } else {
                 // Pegando os valores da GUI
                 objPessoa.setNome(txtNome.getText());
-                objPessoa.setCPF(txtCPF.getText());
+                objPessoa.setCPF(txtCPFPessoa.getText());
                 objPessoa.setEndereco(txtEndereco.getText());
                 objPessoa.setTelefone(txtTelefone.getText());
 //                objPessoa.setID((int) tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 0));
@@ -491,7 +491,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
                 btnAtualizarCadastro.setEnabled(false);
                 btnRemoverClienteCadastro.setEnabled(false);
                 txtNome.setText("");
-                txtCPF.setText("");
+                txtCPFPessoa.setText("");
                 txtEndereco.setText("");
                 txtTelefone.setText("");
                 tbRegistros.clearSelection();
@@ -507,12 +507,12 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
 
     private void btnVoltarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroActionPerformed
         this.dispose();
-        ViewPaginaInicial inicio = new ViewPaginaInicial();
-        inicio.setVisible(true);
+        ViewPaginaInicial paginainicial = new ViewPaginaInicial();
+        paginainicial.setVisible(true);
     }//GEN-LAST:event_btnVoltarCadastroActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String cpfteste = txtCPF.getText();
+        String cpfteste = txtCPFPessoa.getText();
         cpfteste = cpfteste.replace("-", "");
         cpfteste = cpfteste.replace(".", "");
         System.out.println(cpfteste);
@@ -556,7 +556,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
                 btnAtualizarCadastro.setEnabled(false);
                 btnRemoverClienteCadastro.setEnabled(false);
                 txtNome.setText("");
-                txtCPF.setText("");
+                txtCPFPessoa.setText("");
                 txtEndereco.setText("");
                 txtTelefone.setText("");
                 tbRegistros.clearSelection();
@@ -584,7 +584,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
 
             txtNome.setText(
                 tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 0).toString());
-            txtCPF.setText(
+            txtCPFPessoa.setText(
                 tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 1).toString());
             txtEndereco.setText(
                 tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 2).toString());
@@ -603,7 +603,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
         btnAtualizarCadastro.setEnabled(false);
         btnRemoverClienteCadastro.setEnabled(false);
         txtNome.setText("");
-        txtCPF.setText("");
+        txtCPFPessoa.setText("");
         txtEndereco.setText("");
         txtTelefone.setText("");
         txtPesquisaCPF.setText("");
@@ -678,7 +678,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
     private javax.swing.JPanel panelBotoes;
     private javax.swing.JPanel panelCampos;
     private javax.swing.JTable tbRegistros;
-    private javax.swing.JFormattedTextField txtCPF;
+    private javax.swing.JFormattedTextField txtCPFPessoa;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
     private javax.swing.JFormattedTextField txtPesquisaCPF;

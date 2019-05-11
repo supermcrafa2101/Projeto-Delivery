@@ -17,6 +17,8 @@ public class NotaFiscal {
     private String NomeCliente;
     private String CPFCliente;
     private String NomeItem;
+    private String Telefone;
+    private String Endereco;
     private int ValorTotal;
 
     public String getData() {
@@ -67,6 +69,24 @@ public class NotaFiscal {
         this.NomeItem = NomeItem;
     }
 
+    public String getTelefone() {
+        return Telefone;
+    }
+
+    public void setTelefone(String Telefone) {
+        this.Telefone = Telefone;
+    }
+
+    public String getEndereco() {
+        return Endereco;
+    }
+
+    public void setEndereco(String Endereco) {
+        this.Endereco = Endereco;
+    }
+
+    
+    
     public int getValorTotal() {
         return ValorTotal;
     }
@@ -74,6 +94,5 @@ public class NotaFiscal {
     public void setValorTotal(int ValorTotal) {
         this.ValorTotal = ValorTotal;
     }
-    
     
 }

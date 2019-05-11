@@ -29,6 +29,8 @@ public class ViewNotaFiscal extends javax.swing.JFrame {
         lblCPFCliente.setText(notafiscal.getCPFCliente());
         lblNomeItem.setText(notafiscal.getNomeItem());
         lblValorTotal.setText("R$"+(Integer.toString(notafiscal.getValorTotal())));
+        lblEndereco.setText(notafiscal.getEndereco());
+        lblTelefone.setText(notafiscal.getTelefone());
     }
 
     /**
@@ -56,6 +58,10 @@ public class ViewNotaFiscal extends javax.swing.JFrame {
         lblValorTotal = new javax.swing.JLabel();
         lblVISUALIDPEDIDO = new javax.swing.JLabel();
         lblIDPedido = new javax.swing.JLabel();
+        lblVISUALEDNERECO = new javax.swing.JLabel();
+        lblEndereco = new javax.swing.JLabel();
+        lblVISUALTELEFONE = new javax.swing.JLabel();
+        lblTelefone = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -92,15 +98,29 @@ public class ViewNotaFiscal extends javax.swing.JFrame {
 
         lblIDPedido.setText("...");
 
+        lblVISUALEDNERECO.setText("Endereco");
+
+        lblEndereco.setText("...");
+
+        lblVISUALTELEFONE.setText("Telefone");
+
+        lblTelefone.setText("...");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblVISUALIDPEDIDO)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
-                .addComponent(lblIDPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblVISUALIDPEDIDO)
+                    .addComponent(lblVISUALEDNERECO)
+                    .addComponent(lblVISUALTELEFONE))
+                .addGap(147, 147, 147)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblIDPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                    .addComponent(lblTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -136,7 +156,15 @@ public class ViewNotaFiscal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblVISUALIDPEDIDO)
                     .addComponent(lblIDPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblVISUALEDNERECO)
+                    .addComponent(lblEndereco))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblVISUALTELEFONE)
+                    .addComponent(lblTelefone))
+                .addGap(32, 32, 32))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -165,7 +193,7 @@ public class ViewNotaFiscal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblVISUALVALORTOTAL)
                         .addComponent(lblValorTotal))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(75, Short.MAX_VALUE)))
         );
 
         jButton1.setText("Fechar");
@@ -193,8 +221,8 @@ public class ViewNotaFiscal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -252,16 +280,20 @@ public class ViewNotaFiscal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCPFCliente;
     private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblEndereco;
     private javax.swing.JLabel lblFuncionario;
     private javax.swing.JLabel lblIDPedido;
     private javax.swing.JLabel lblNomeCliente;
     private javax.swing.JLabel lblNomeItem;
+    private javax.swing.JLabel lblTelefone;
     private javax.swing.JLabel lblVISUALCPFDOCLIENTE;
     private javax.swing.JLabel lblVISUALDATA;
+    private javax.swing.JLabel lblVISUALEDNERECO;
     private javax.swing.JLabel lblVISUALFUNCIONARIO;
     private javax.swing.JLabel lblVISUALIDPEDIDO;
     private javax.swing.JLabel lblVISUALNOMEDOCLIENTE;
     private javax.swing.JLabel lblVISUALNOMEDOITEM;
+    private javax.swing.JLabel lblVISUALTELEFONE;
     private javax.swing.JLabel lblVISUALVALORTOTAL;
     private javax.swing.JLabel lblValorTotal;
     // End of variables declaration//GEN-END:variables
