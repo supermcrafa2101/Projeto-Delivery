@@ -338,14 +338,14 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
                     .addComponent(btnRemoverClienteCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSairCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPesquisarCPF)
                     .addComponent(txtPesquisaCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisarCPF)
                     .addComponent(btnLimparPesquisa))
                 .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
         );
 
         btnLimparCampos.setText("Limpar");
@@ -444,53 +444,6 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
         btnRemoverClienteCadastro.setEnabled(false);
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
-    private void btnRemoverClienteCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverClienteCadastroActionPerformed
-        // Remove a pessoa indicada ao pressionar o botao Remover Pessoa.
-        if (tbRegistros.getSelectedRow() != -1) {
-            // Criando uma modificação para o MessageDIalog de aviso
-            JFrame frame = new JFrame();
-            String[] opcoesSMD = new String[2];
-            opcoesSMD[0] = new String("Sim");
-            opcoesSMD[1] = new String("Não");
-            // Exibe o aviso e captura a resposta na variavel 'escolha'
-            int escolha = JOptionPane.showOptionDialog(
-                    frame.getContentPane(),
-                    "A pessoa selecionada sera removido!!!",
-                    "AVISO",
-                    0,
-                    JOptionPane.WARNING_MESSAGE,
-                    null,
-                    opcoesSMD,
-                    null);
-
-            if (escolha == JOptionPane.YES_OPTION) {
-
-                Pessoa objPessoa = new Pessoa();
-                PessoaDAO dao = new PessoaDAO();
-
-                objPessoa.setCPF((String) tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 1));
-
-                dao.delete(objPessoa);
-                readJTable();
-
-                btnAdicionarClienteCadastro.setEnabled(true);
-                btnAtualizarCadastro.setEnabled(false);
-                btnRemoverClienteCadastro.setEnabled(false);
-                txtNome.setText("");
-                txtCPF.setText("");
-                txtEndereco.setText("");
-                txtTelefone.setText("");
-                tbRegistros.clearSelection();
-
-            } else if (escolha == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Nada foi alterado.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null,
-                    "Selecione uma pessoa para remover");
-        }
-    }//GEN-LAST:event_btnRemoverClienteCadastroActionPerformed
-
     private void txtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCPFActionPerformed
@@ -570,30 +523,56 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void txtPesquisaCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaCPFActionPerformed
+    private void btnRemoverClienteCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverClienteCadastroActionPerformed
+        // Remove a pessoa indicada ao pressionar o botao Remover Pessoa.
+        if (tbRegistros.getSelectedRow() != -1) {
+            // Criando uma modificação para o MessageDIalog de aviso
+            JFrame frame = new JFrame();
+            String[] opcoesSMD = new String[2];
+            opcoesSMD[0] = new String("Sim");
+            opcoesSMD[1] = new String("Não");
+            // Exibe o aviso e captura a resposta na variavel 'escolha'
+            int escolha = JOptionPane.showOptionDialog(
+                frame.getContentPane(),
+                "A pessoa selecionada sera removido!!!",
+                "AVISO",
+                0,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                opcoesSMD,
+                null);
+
+            if (escolha == JOptionPane.YES_OPTION) {
+
+                Pessoa objPessoa = new Pessoa();
+                PessoaDAO dao = new PessoaDAO();
+
+                objPessoa.setCPF((String) tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 1));
+
+                dao.delete(objPessoa);
+                readJTable();
+
+                btnAdicionarClienteCadastro.setEnabled(true);
+                btnAtualizarCadastro.setEnabled(false);
+                btnRemoverClienteCadastro.setEnabled(false);
+                txtNome.setText("");
+                txtCPF.setText("");
+                txtEndereco.setText("");
+                txtTelefone.setText("");
+                tbRegistros.clearSelection();
+
+            } else if (escolha == JOptionPane.NO_OPTION) {
+                JOptionPane.showMessageDialog(null, "Nada foi alterado.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null,
+                "Selecione uma pessoa para remover");
+        }
+    }//GEN-LAST:event_btnRemoverClienteCadastroActionPerformed
+
+    private void tbRegistrosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbRegistrosKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPesquisaCPFActionPerformed
-
-    private void btnPesquisarCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarCPFActionPerformed
-        readJTableCPF(txtPesquisaCPF.getText());
-        System.out.println(txtPesquisaCPF.getText());
-    }//GEN-LAST:event_btnPesquisarCPFActionPerformed
-
-    private void btnLimparPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparPesquisaActionPerformed
-        btnAdicionarClienteCadastro.setEnabled(true);
-        btnAtualizarCadastro.setEnabled(false);
-        btnRemoverClienteCadastro.setEnabled(false);
-        txtNome.setText("");
-        txtCPF.setText("");
-        txtEndereco.setText("");
-        txtTelefone.setText("");
-        txtPesquisaCPF.setText("");
-        readJTable();
-    }//GEN-LAST:event_btnLimparPesquisaActionPerformed
-
-    private void tbRegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbRegistrosMouseClicked
-
-    }//GEN-LAST:event_tbRegistrosMouseClicked
+    }//GEN-LAST:event_tbRegistrosKeyReleased
 
     private void tbRegistrosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbRegistrosMouseReleased
 
@@ -615,9 +594,30 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tbRegistrosMouseReleased
 
-    private void tbRegistrosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbRegistrosKeyReleased
+    private void tbRegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbRegistrosMouseClicked
+
+    }//GEN-LAST:event_tbRegistrosMouseClicked
+
+    private void btnLimparPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparPesquisaActionPerformed
+        btnAdicionarClienteCadastro.setEnabled(true);
+        btnAtualizarCadastro.setEnabled(false);
+        btnRemoverClienteCadastro.setEnabled(false);
+        txtNome.setText("");
+        txtCPF.setText("");
+        txtEndereco.setText("");
+        txtTelefone.setText("");
+        txtPesquisaCPF.setText("");
+        readJTable();
+    }//GEN-LAST:event_btnLimparPesquisaActionPerformed
+
+    private void btnPesquisarCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarCPFActionPerformed
+        readJTableCPF(txtPesquisaCPF.getText());
+        System.out.println(txtPesquisaCPF.getText());
+    }//GEN-LAST:event_btnPesquisarCPFActionPerformed
+
+    private void txtPesquisaCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaCPFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tbRegistrosKeyReleased
+    }//GEN-LAST:event_txtPesquisaCPFActionPerformed
 
     /**
      * @param args the command line arguments

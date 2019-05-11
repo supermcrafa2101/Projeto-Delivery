@@ -11,23 +11,28 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.bean.Pedido;
 import model.dao.PedidoDAO;
+import model.bean.NotaFiscal;
 
 /**
  *
  * @author TeixeiraAdmin
  */
-public class ConsultaPedidos extends javax.swing.JFrame {
+public class ViewConsultaPedidos extends javax.swing.JFrame {
 
     /**
      * Creates new form ConsultaPedidos
      */
-    public ConsultaPedidos() {
+
+    public ViewConsultaPedidos() {
         initComponents();
         DefaultTableModel modelo = (DefaultTableModel) tbPedido.getModel();
         tbPedido.setRowSorter(new TableRowSorter(modelo));
-        
+
+        btnRemoverPedido.setEnabled(false);
+        btnNotaFiscal.setEnabled(false);
         readJTable();
     }
+
     public void readJTable() {
         // Este metodo serve para atualizar a tabela
 
@@ -48,6 +53,7 @@ public class ConsultaPedidos extends javax.swing.JFrame {
                 objpedido.getDataPedido()});
         });
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,8 +67,14 @@ public class ConsultaPedidos extends javax.swing.JFrame {
         tbPedido = new javax.swing.JTable();
         btnRemoverPedido = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+        btnNotaFiscal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         tbPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -137,6 +149,13 @@ public class ConsultaPedidos extends javax.swing.JFrame {
             }
         });
 
+        btnNotaFiscal.setText("Nota Fiscal");
+        btnNotaFiscal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNotaFiscalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,7 +168,9 @@ public class ConsultaPedidos extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRemoverPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 315, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNotaFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                         .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38))))
         );
@@ -157,9 +178,10 @@ public class ConsultaPedidos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRemoverPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
-                    .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNotaFiscal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                 .addContainerGap())
@@ -173,8 +195,10 @@ public class ConsultaPedidos extends javax.swing.JFrame {
     }//GEN-LAST:event_tbPedidoMouseClicked
 
     private void tbPedidoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPedidoMouseReleased
-
-        btnRemoverPedido.setEnabled(true);
+        if ((tbPedido.getSelectedRow()) != -1) {
+            btnRemoverPedido.setEnabled(true);
+            btnNotaFiscal.setEnabled(true);
+        }
     }//GEN-LAST:event_tbPedidoMouseReleased
 
     private void tbPedidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbPedidoKeyReleased
@@ -191,14 +215,14 @@ public class ConsultaPedidos extends javax.swing.JFrame {
             opcoesSMD[1] = new String("Não");
             // Exibe o aviso e captura a resposta na variavel 'escolha'
             int escolha = JOptionPane.showOptionDialog(
-                frame.getContentPane(),
-                "O pedido selecionada sera removido!!!",
-                "AVISO",
-                0,
-                JOptionPane.WARNING_MESSAGE,
-                null,
-                opcoesSMD,
-                null);
+                    frame.getContentPane(),
+                    "O pedido selecionada sera removido!!!",
+                    "AVISO",
+                    0,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    opcoesSMD,
+                    null);
 
             // Caso escolher opção "Sim", removerá a pedido selecionado da tabela
             if (escolha == JOptionPane.YES_OPTION) {
@@ -223,7 +247,35 @@ public class ConsultaPedidos extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
+        ViewPedido pedido = new ViewPedido();
+        pedido.setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+
+    }//GEN-LAST:event_formWindowClosed
+
+    private void btnNotaFiscalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotaFiscalActionPerformed
+        PedidoDAO daopedido = new PedidoDAO();
+        NotaFiscal notafiscal = new NotaFiscal();
+        Pedido objPedido = new Pedido();
+        
+        int iddopedido = ((int) tbPedido.getValueAt(tbPedido.getSelectedRow(), 0));
+        
+        daopedido.readUmPedido(iddopedido,objPedido);
+        
+        notafiscal.setIDPedido(objPedido.getID());
+        notafiscal.setData(objPedido.getDataPedido());
+        notafiscal.setNomeCliente(objPedido.getNomeCliente());
+        notafiscal.setCPFCliente(objPedido.getCPFCliente());
+        notafiscal.setNomeItem(objPedido.getNomeItem());
+        notafiscal.setValorTotal(objPedido.getValor());
+        
+
+        ViewNotaFiscal janelanotafiscal = new ViewNotaFiscal(notafiscal);
+        this.dispose();
+        janelanotafiscal.setVisible(true);
+    }//GEN-LAST:event_btnNotaFiscalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,25 +294,27 @@ public class ConsultaPedidos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConsultaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewConsultaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConsultaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewConsultaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConsultaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewConsultaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConsultaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewConsultaPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConsultaPedidos().setVisible(true);
+                new ViewConsultaPedidos().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNotaFiscal;
     private javax.swing.JButton btnRemoverPedido;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JScrollPane jScrollPane1;

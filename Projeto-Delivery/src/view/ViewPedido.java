@@ -5,10 +5,7 @@
  */
 package view;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 import model.bean.Pedido;
 import model.bean.Pessoa;
 import model.bean.Produto;
@@ -201,6 +198,14 @@ public class ViewPedido extends javax.swing.JFrame {
         });
 
         btnConsultarPedidos.setText("Consultar Pedidos");
+        btnConsultarPedidos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                btnConsultarPedidosFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                btnConsultarPedidosFocusLost(evt);
+            }
+        });
         btnConsultarPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarPedidosActionPerformed(evt);
@@ -270,18 +275,24 @@ public class ViewPedido extends javax.swing.JFrame {
 
         PedidoDAO pedidodao = new PedidoDAO();
         Pedido objpedido = new Pedido();
+        Pessoa objpessoa = new Pessoa();
+        Produto objproduto = new Produto();
 
         if (!"".equals(lblValor.getText())
                 || !"".equals(lblNomeCliente.getText())
                 || !"".equals(lblNomeItem.getText())) {
 
-            objpedido.setIDItem((int) cbIDItem.getSelectedItem());
-            objpedido.setNomeCliente(lblNomeCliente.getText());
-            objpedido.setCPFCliente((String) cbCPFCliente.getSelectedItem());
-            objpedido.setNomeItem(lblNomeItem.getText());
-            objpedido.setValor(Integer.parseInt(lblValor.getText()));
+            int pedidoSelecionado = (int) cbIDItem.getSelectedItem();
+            String CPFSelecionado = (String) cbCPFCliente.getSelectedItem();
 
-            pedidodao.create(objpedido);
+            pedidodao.searchPessoa(CPFSelecionado, objpessoa);
+            pedidodao.searchProduto(pedidoSelecionado, objproduto);
+            
+            //Todos os dados que irao pro registro na tabela Pedido
+            
+            
+            
+            pedidodao.create(objpessoa,objproduto);
         } else {
             JOptionPane.showMessageDialog(null, "Algum dado não foi informado!");
         }
@@ -297,14 +308,16 @@ public class ViewPedido extends javax.swing.JFrame {
     private void btnProcurarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarClienteActionPerformed
         btnAdicionarPedido.setEnabled(true);
         PedidoDAO pedidodao = new PedidoDAO();
+        Pessoa objpessoa = new Pessoa();
+
         Pedido objpedido = new Pedido();
 
-        objpedido.setCPFCliente((String) cbCPFCliente.getSelectedItem());
+        String CPFSelecionado = (String) cbCPFCliente.getSelectedItem();
 
-        objpedido.setNomeCliente(objpedido.getNomeCliente());
-        objpedido.setCPFCliente(objpedido.getCPFCliente());
+        pedidodao.searchPessoa(CPFSelecionado, objpessoa);
 
-        pedidodao.searchPessoaNome(objpedido);
+        objpedido.setNomeCliente(objpessoa.getNome());
+        objpedido.setCPFCliente(objpessoa.getCPF());
 
         lblNomeCliente.setText(objpedido.getNomeCliente());
 
@@ -315,17 +328,17 @@ public class ViewPedido extends javax.swing.JFrame {
 
         PedidoDAO pedidodao = new PedidoDAO();
         Pedido objpedido = new Pedido();
+        Produto objproduto = new Produto();
 
-        objpedido.setIDItem((int) cbIDItem.getSelectedItem());
+        int pedidoSelecionado = (int) cbIDItem.getSelectedItem();
 
         objpedido.setNomeItem(objpedido.getNomeItem());
         objpedido.setValor(objpedido.getValor());
 
-        pedidodao.searchProdutoNome(objpedido);
-        pedidodao.searchValorProduto(objpedido);
+        pedidodao.searchProduto(pedidoSelecionado, objproduto);
 
-        lblNomeItem.setText(objpedido.getNomeItem());
-        lblValor.setText(String.valueOf(objpedido.getValor()));
+        lblNomeItem.setText(objproduto.getNome());
+        lblValor.setText(String.valueOf(objproduto.getPreco()));
     }//GEN-LAST:event_btnProcurarItemActionPerformed
 
     private void cbIDItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbIDItemActionPerformed
@@ -337,10 +350,19 @@ public class ViewPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_cbCPFClienteActionPerformed
 
     private void btnConsultarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarPedidosActionPerformed
-        ConsultaPedidos conspedido = new ConsultaPedidos();
+        this.dispose();
+        ViewConsultaPedidos conspedido = new ViewConsultaPedidos();
         conspedido.setVisible(true);
         conspedido.readJTable();
     }//GEN-LAST:event_btnConsultarPedidosActionPerformed
+
+    private void btnConsultarPedidosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnConsultarPedidosFocusLost
+        this.setEnabled(false);
+    }//GEN-LAST:event_btnConsultarPedidosFocusLost
+
+    private void btnConsultarPedidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnConsultarPedidosFocusGained
+        this.setEnabled(true);
+    }//GEN-LAST:event_btnConsultarPedidosFocusGained
 
     /**
      * @param args the command line arguments

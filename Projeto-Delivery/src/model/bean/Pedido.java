@@ -13,6 +13,8 @@ public class Pedido {
     private String CPFCliente;
     private int Valor;
     private String DataPedido;
+    private String Telefone;
+    private String Endereco;
 
     public int getID() {
         return ID;
@@ -54,6 +56,25 @@ public class Pedido {
         this.CPFCliente = CPFCliente;
     }
 
+    public String getTelefone() {
+        return Telefone;
+    }
+
+    public void setTelefone(String Telefone) {
+        this.Telefone = Telefone;
+    }
+
+    public String getEndereco() {
+        return Endereco;
+    }
+
+    public void setEndereco(String Endereco) {
+        this.Endereco = Endereco;
+    }
+    
+    
+    
+
     public int getValor() {
         return Valor;
     }
@@ -69,7 +90,6 @@ public class Pedido {
     public void setDataPedido(String DataPedido) {
         this.DataPedido = DataPedido;
     }
-
     
     @Override
     public String toString() {
