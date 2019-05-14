@@ -26,6 +26,11 @@ public class ViewGerenProduto extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tbProduto.getModel();
         tbProduto.setRowSorter(new TableRowSorter(modelo));
 
+        cbTipo.addItem("");
+        cbTipo.addItem("Pizza Salgada");
+        cbTipo.addItem("Pizza Doce");
+        cbTipo.addItem("Outros");
+        
         readJTable();
 
     }
@@ -59,9 +64,9 @@ public class ViewGerenProduto extends javax.swing.JFrame {
         lblTipo = new javax.swing.JLabel();
         lblPreco = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        txtTipo = new javax.swing.JTextField();
         txtPreco = new javax.swing.JTextField();
         btnLimparCampos = new javax.swing.JButton();
+        cbTipo = new javax.swing.JComboBox<>();
         panelBotoes = new javax.swing.JPanel();
         btnRemoverProduto = new javax.swing.JButton();
         btnSairProduto = new javax.swing.JButton();
@@ -72,6 +77,7 @@ public class ViewGerenProduto extends javax.swing.JFrame {
         btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delivery");
 
         panelCampos.setBorder(javax.swing.BorderFactory.createTitledBorder("Gerenciar Produtos"));
 
@@ -84,12 +90,6 @@ public class ViewGerenProduto extends javax.swing.JFrame {
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeActionPerformed(evt);
-            }
-        });
-
-        txtTipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTipoActionPerformed(evt);
             }
         });
 
@@ -113,9 +113,7 @@ public class ViewGerenProduto extends javax.swing.JFrame {
             .addGroup(panelCamposLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCamposLayout.createSequentialGroup()
-                        .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelCamposLayout.createSequentialGroup()
                         .addComponent(lblTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(19, 19, 19))
@@ -124,9 +122,9 @@ public class ViewGerenProduto extends javax.swing.JFrame {
                         .addGap(16, 16, 16)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
-                    .addComponent(txtNome, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtPreco))
+                    .addComponent(txtNome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                    .addComponent(txtPreco)
+                    .addComponent(cbTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(43, 43, 43)
                 .addComponent(btnLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -144,10 +142,10 @@ public class ViewGerenProduto extends javax.swing.JFrame {
                             .addGroup(panelCamposLayout.createSequentialGroup()
                                 .addComponent(txtNome)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblTipo)
-                            .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
                         .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblPreco))))
@@ -300,10 +298,6 @@ public class ViewGerenProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTipoActionPerformed
-
     private void btnRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverProdutoActionPerformed
 
         if (tbProduto.getSelectedRow() != -1) {
@@ -340,7 +334,6 @@ public class ViewGerenProduto extends javax.swing.JFrame {
                 btnRemoverProduto.setEnabled(false);
                 btnAdicionarProduto.setEnabled(true);
                 txtNome.setText("");
-                txtTipo.setText("");
                 txtPreco.setText("");
                 tbProduto.clearSelection();
 
@@ -358,12 +351,12 @@ public class ViewGerenProduto extends javax.swing.JFrame {
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
         txtNome.setText("");
-        txtTipo.setText("");
         txtPreco.setText("");
         tbProduto.clearSelection();
         btnAtualizarProduto.setEnabled(false);
         btnRemoverProduto.setEnabled(false);
         btnAdicionarProduto.setEnabled(true);
+        cbTipo.setSelectedIndex(0);
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     private void tbProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProdutoMouseClicked
@@ -374,14 +367,15 @@ public class ViewGerenProduto extends javax.swing.JFrame {
 
         // Verifica se alguma linha foi selecionada
         if ((tbProduto.getSelectedRow()) != -1) {
+            String tipoDoProdutoSelecionado = tbProduto.getValueAt(tbProduto.getSelectedRow(), 2).toString();
+            
             btnAdicionarProduto.setEnabled(false);
             btnAtualizarProduto.setEnabled(true);
             btnRemoverProduto.setEnabled(true);
 
             txtNome.setText(
                     tbProduto.getValueAt(tbProduto.getSelectedRow(), 1).toString());
-            txtTipo.setText(
-                    tbProduto.getValueAt(tbProduto.getSelectedRow(), 2).toString());
+            cbTipo.setSelectedItem(tipoDoProdutoSelecionado);
             txtPreco.setText(tbProduto.getValueAt(tbProduto.getSelectedRow(), 3).toString());
 
         }
@@ -397,7 +391,7 @@ public class ViewGerenProduto extends javax.swing.JFrame {
             Produto objProduto = new Produto();
             ProdutoDAO dao = new ProdutoDAO();
             if ((txtNome.getText().equals(""))
-                    || txtTipo.getText().equals("")
+                    || ((String) cbTipo.getSelectedItem()).equals("")
                     || txtPreco.getText().equals("")) {
                 JOptionPane.showMessageDialog(null,
                         "Todos os campos devem ser preenchidos!");
@@ -405,7 +399,7 @@ public class ViewGerenProduto extends javax.swing.JFrame {
 
                 // Pegando os valores da GUI
                 objProduto.setNome(txtNome.getText());
-                objProduto.setTipo(txtTipo.getText());
+                objProduto.setTipo((String)cbTipo.getSelectedItem());
                 objProduto.setPreco(Integer.parseInt(txtPreco.getText()));
                 objProduto.setID((int) tbProduto.getValueAt(tbProduto.getSelectedRow(), 0));
 
@@ -418,7 +412,6 @@ public class ViewGerenProduto extends javax.swing.JFrame {
                 btnRemoverProduto.setEnabled(false);
                 btnAdicionarProduto.setEnabled(true);
                 txtNome.setText("");
-                txtTipo.setText("");
                 txtPreco.setText("");
                 tbProduto.clearSelection();
             }
@@ -430,24 +423,22 @@ public class ViewGerenProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtualizarProdutoActionPerformed
 
     private void btnAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarProdutoActionPerformed
-        //Cadastra uma produto no banco de dados 'Delivery' na table 'produto',
-        //  com os valores inseridos nos textFields ao clicar no botao Cadastrar.
         Produto objProduto = new Produto();
         ProdutoDAO dao = new ProdutoDAO();
-        if ((txtNome.getText().equals(""))
-                || txtTipo.getText().equals("")
-                || txtPreco.getText().equals("")) {
+
+        if (txtNome.getText().equals("")
+                || (txtNome.getText().replaceAll(" ", "").equals(""))
+                || ((String) cbTipo.getSelectedItem()).replaceAll(" ", "").equals("")
+                || txtPreco.getText().replaceAll(" ", "").equals("")) {
             JOptionPane.showMessageDialog(null,
                     "Todos os campos devem ser preenchidos!");
 
         } else {
-            // Pegando os valores da GUI
+            try{
             objProduto.setNome(txtNome.getText());
-            objProduto.setTipo(txtTipo.getText());
+            objProduto.setTipo((String) cbTipo.getSelectedItem());
             objProduto.setPreco(Integer.parseInt(txtPreco.getText()));
 
-            // Cria o objeto 'objProduto' da classe 'Produto' com
-            // os atributos inseridos nos campos de cadastro
             dao.create(objProduto);
 
             readJTable();
@@ -456,7 +447,9 @@ public class ViewGerenProduto extends javax.swing.JFrame {
             btnAtualizarProduto.setEnabled(false);
             btnRemoverProduto.setEnabled(false);
             btnAdicionarProduto.setEnabled(true);
-
+            }catch(java.lang.NumberFormatException ex){
+                JOptionPane.showMessageDialog(null, "Insira apenas numero no campo de valor!");
+            }
         }
     }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
 
@@ -515,6 +508,7 @@ public class ViewGerenProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnRemoverProduto;
     private javax.swing.JButton btnSairProduto;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JComboBox<String> cbTipo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblPreco;
@@ -524,6 +518,5 @@ public class ViewGerenProduto extends javax.swing.JFrame {
     private javax.swing.JTable tbProduto;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPreco;
-    private javax.swing.JTextField txtTipo;
     // End of variables declaration//GEN-END:variables
 }

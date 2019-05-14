@@ -46,9 +46,7 @@ public class ViewNotaFiscal extends javax.swing.JFrame {
         lblVISUALDATA = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
-        lblVISUALFUNCIONARIO = new javax.swing.JLabel();
         lblVISUALNOMEDOCLIENTE = new javax.swing.JLabel();
-        lblFuncionario = new javax.swing.JLabel();
         lblNomeCliente = new javax.swing.JLabel();
         lblVISUALCPFDOCLIENTE = new javax.swing.JLabel();
         lblCPFCliente = new javax.swing.JLabel();
@@ -65,6 +63,7 @@ public class ViewNotaFiscal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delivery");
 
         lblVISUALDATA.setText("Data");
 
@@ -74,11 +73,7 @@ public class ViewNotaFiscal extends javax.swing.JFrame {
 
         lblData.setText("...");
 
-        lblVISUALFUNCIONARIO.setText("Funcionario:");
-
         lblVISUALNOMEDOCLIENTE.setText("Nome do Cliente:");
-
-        lblFuncionario.setText("...");
 
         lblNomeCliente.setText("...");
 
@@ -129,13 +124,11 @@ public class ViewNotaFiscal extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblVISUALFUNCIONARIO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblVISUALNOMEDOCLIENTE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblVISUALDATA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGap(37, 37, 37)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(lblData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,11 +166,7 @@ public class ViewNotaFiscal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblVISUALDATA)
                         .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(43, 43, 43)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblVISUALFUNCIONARIO)
-                        .addComponent(lblFuncionario))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGap(63, 63, 63)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblNomeCliente)
                         .addComponent(lblVISUALNOMEDOCLIENTE, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -281,7 +270,6 @@ public class ViewNotaFiscal extends javax.swing.JFrame {
     private javax.swing.JLabel lblCPFCliente;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblEndereco;
-    private javax.swing.JLabel lblFuncionario;
     private javax.swing.JLabel lblIDPedido;
     private javax.swing.JLabel lblNomeCliente;
     private javax.swing.JLabel lblNomeItem;
@@ -289,7 +277,6 @@ public class ViewNotaFiscal extends javax.swing.JFrame {
     private javax.swing.JLabel lblVISUALCPFDOCLIENTE;
     private javax.swing.JLabel lblVISUALDATA;
     private javax.swing.JLabel lblVISUALEDNERECO;
-    private javax.swing.JLabel lblVISUALFUNCIONARIO;
     private javax.swing.JLabel lblVISUALIDPEDIDO;
     private javax.swing.JLabel lblVISUALNOMEDOCLIENTE;
     private javax.swing.JLabel lblVISUALNOMEDOITEM;

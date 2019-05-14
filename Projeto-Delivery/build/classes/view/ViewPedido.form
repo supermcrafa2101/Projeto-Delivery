@@ -3,6 +3,7 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Delivery"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -72,24 +73,25 @@
                           <Component id="cbIDItem" min="-2" pref="64" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnProcurarItem" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="44" max="32767" attributes="0"/>
-                          <Component id="lblVISUALNOMEITEM" min="-2" pref="73" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="lblVISUALNOMEITEM" min="-2" pref="90" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="lblNomeItem" min="-2" pref="200" max="-2" attributes="0"/>
-                          <EmptySpace pref="61" max="32767" attributes="0"/>
-                          <Component id="lblVISUALVALOR" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="lblValor" min="-2" pref="71" max="-2" attributes="0"/>
+                          <Component id="lblNomeItem" min="-2" pref="196" max="-2" attributes="0"/>
+                          <EmptySpace pref="31" max="32767" attributes="0"/>
+                          <Component id="lblVISUALVALOR" min="-2" pref="69" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="lblValor" min="-2" pref="56" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           <Component id="cbCPFCliente" min="-2" pref="137" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnProcurarCliente" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="lblVISUALNOMECLIENTE" min="-2" pref="73" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="lblNomeCliente" pref="317" max="32767" attributes="0"/>
+                          <Component id="lblVISUALNOMECLIENTE" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="lblNomeCliente" min="-2" pref="291" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
@@ -108,22 +110,14 @@
                       <Component id="btnProcurarCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="lblVISUALVALOR" alignment="3" max="32767" attributes="0"/>
-                              <Component id="lblValor" alignment="3" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblNomeItem" alignment="3" max="32767" attributes="0"/>
-                              <Component id="lblVISUALNOMEITEM" alignment="3" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblVISUALITEM" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbIDItem" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnProcurarItem" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblVISUALITEM" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbIDItem" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnProcurarItem" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblVISUALNOMEITEM" alignment="3" max="32767" attributes="0"/>
+                      <Component id="lblNomeItem" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblVISUALVALOR" alignment="3" max="32767" attributes="0"/>
+                      <Component id="lblValor" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
@@ -164,12 +158,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblVISUALNOMECLIENTE">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nome:"/>
+            <Property name="text" type="java.lang.String" value="Nome do Cliente:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblVISUALNOMEITEM">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nome:"/>
+            <Property name="text" type="java.lang.String" value="Nome do Item:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblNomeItem">
@@ -179,7 +173,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblVISUALVALOR">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Valor"/>
+            <Property name="text" type="java.lang.String" value="Valor Total:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblValor">

@@ -386,14 +386,14 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarClienteCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarClienteCadastroActionPerformed
-        //Cadastra uma pessoa no banco de dados 'Delivery' na table 'pessoa',
-        //  com os valores inseridos nos textFields ao clicar no botao Cadastrar. 
         Pessoa objPessoa = new Pessoa();
         PessoaDAO dao = new PessoaDAO();
         String CPF = (txtCPFPessoa.getText().replace(".", ""));
         CPF = (CPF.replace("-", ""));
 
-        if (txtNome.getText().equals("")
+        String verificaNomeComEspaco = txtNome.getText();
+        verificaNomeComEspaco = verificaNomeComEspaco.replaceAll(" ", "");
+        if (verificaNomeComEspaco.equals("")
                 || txtCPFPessoa.getText().equals("")
                 || txtEndereco.getText().equals("")
                 || txtTelefone.getText().equals("")) {
@@ -533,14 +533,14 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
             opcoesSMD[1] = new String("Não");
             // Exibe o aviso e captura a resposta na variavel 'escolha'
             int escolha = JOptionPane.showOptionDialog(
-                frame.getContentPane(),
-                "A pessoa selecionada sera removido!!!",
-                "AVISO",
-                0,
-                JOptionPane.WARNING_MESSAGE,
-                null,
-                opcoesSMD,
-                null);
+                    frame.getContentPane(),
+                    "A pessoa selecionada sera removido!!!",
+                    "AVISO",
+                    0,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    opcoesSMD,
+                    null);
 
             if (escolha == JOptionPane.YES_OPTION) {
 
@@ -566,7 +566,7 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null,
-                "Selecione uma pessoa para remover");
+                    "Selecione uma pessoa para remover");
         }
     }//GEN-LAST:event_btnRemoverClienteCadastroActionPerformed
 
@@ -583,13 +583,13 @@ public class ViewGerenPessoa extends javax.swing.JFrame {
             btnAdicionarClienteCadastro.setEnabled(false);
 
             txtNome.setText(
-                tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 0).toString());
+                    tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 0).toString());
             txtCPFPessoa.setText(
-                tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 1).toString());
+                    tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 1).toString());
             txtEndereco.setText(
-                tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 2).toString());
+                    tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 2).toString());
             txtTelefone.setText(
-                tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 3).toString());
+                    tbRegistros.getValueAt(tbRegistros.getSelectedRow(), 3).toString());
 
         }
     }//GEN-LAST:event_tbRegistrosMouseReleased

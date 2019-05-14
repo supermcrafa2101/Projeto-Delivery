@@ -41,6 +41,7 @@ public class ViewLogin extends javax.swing.JFrame {
         passSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delivery");
 
         lblLogin.setText("Login");
 

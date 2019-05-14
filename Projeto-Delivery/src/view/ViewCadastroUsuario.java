@@ -47,6 +47,7 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delivery");
 
         lblVISUALLOGIN.setText("Insira o Login:");
 

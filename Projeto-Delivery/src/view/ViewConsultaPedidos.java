@@ -70,6 +70,7 @@ public class ViewConsultaPedidos extends javax.swing.JFrame {
         btnNotaFiscal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delivery");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -272,7 +273,7 @@ public class ViewConsultaPedidos extends javax.swing.JFrame {
         notafiscal.setValorTotal(objPedido.getValor());
         notafiscal.setEndereco(objPedido.getEndereco());
         notafiscal.setTelefone(objPedido.getTelefone());
-        
+               
 
         ViewNotaFiscal janelanotafiscal = new ViewNotaFiscal(notafiscal);
         this.dispose();

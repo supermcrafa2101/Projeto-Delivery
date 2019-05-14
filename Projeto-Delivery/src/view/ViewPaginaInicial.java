@@ -43,6 +43,7 @@ public class ViewPaginaInicial extends javax.swing.JFrame {
         btnGerenciamentoDePedidos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delivery");
 
         lblBemVindoFuncionario.setText("Bem Vindo, ");
 

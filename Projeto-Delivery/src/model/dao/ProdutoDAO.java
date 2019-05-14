@@ -33,10 +33,13 @@ public class ProdutoDAO {
 
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+        
+        } catch (java.lang.NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Insira apenas numeros no valor!");
+        
         } catch (Exception ex) {
-
             JOptionPane.showMessageDialog(null, "Erro! \n" + ex);
-
+        
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
@@ -90,11 +93,11 @@ public class ProdutoDAO {
             // Codigo que sera executado em sql
             stmt = con.prepareStatement(
                     "UPDATE Produto "
-                            + "SET "
-                            + "Nome = ?,"
-                            + "Tipo = ?,"
-                            + "Preco = ? "
-                            + "WHERE ID = ?");
+                    + "SET "
+                    + "Nome = ?,"
+                    + "Tipo = ?,"
+                    + "Preco = ? "
+                    + "WHERE ID = ?");
             // (X,Y) Sendo x a posição da coluna na tabela e
             //             y o valor indicado no campo
             stmt.setString(1, objProduto.getNome());

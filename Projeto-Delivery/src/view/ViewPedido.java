@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import model.bean.Pedido;
 import model.bean.Pessoa;
@@ -25,6 +26,7 @@ public class ViewPedido extends javax.swing.JFrame {
     public ViewPedido() {
         initComponents();
 
+        btnAdicionarPedido.setEnabled(false);
         Pessoa pessoabean = new Pessoa();
         Produto produtobean = new Produto();
 
@@ -33,6 +35,9 @@ public class ViewPedido extends javax.swing.JFrame {
         PessoaDAO pessoadao = new PessoaDAO();
         ProdutoDAO produtodao = new ProdutoDAO();
 
+        cbCPFCliente.addItem("");
+        cbIDItem.addItem("");
+        int quantidadeItensSelecionados = 0;
         for (Pessoa people : pessoadao.read()) {
             cbCPFCliente.addItem(people.toString());
         }
@@ -71,6 +76,7 @@ public class ViewPedido extends javax.swing.JFrame {
         btnConsultarPedidos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delivery");
 
         panelCampos.setBorder(javax.swing.BorderFactory.createTitledBorder("Gerenciar Pedidos"));
 
@@ -92,13 +98,13 @@ public class ViewPedido extends javax.swing.JFrame {
 
         lblNomeCliente.setText("...");
 
-        lblVISUALNOMECLIENTE.setText("Nome:");
+        lblVISUALNOMECLIENTE.setText("Nome do Cliente:");
 
-        lblVISUALNOMEITEM.setText("Nome:");
+        lblVISUALNOMEITEM.setText("Nome do Item:");
 
         lblNomeItem.setText("...");
 
-        lblVISUALVALOR.setText("Valor");
+        lblVISUALVALOR.setText("Valor Total:");
 
         lblValor.setText("...");
 
@@ -131,23 +137,24 @@ public class ViewPedido extends javax.swing.JFrame {
                         .addComponent(cbIDItem, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnProcurarItem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                        .addComponent(lblVISUALNOMEITEM, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(lblVISUALNOMEITEM, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(lblNomeItem, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                        .addComponent(lblVISUALVALOR)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblNomeItem, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(lblVISUALVALOR, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8))
                     .addGroup(panelCamposLayout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(cbCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnProcurarCliente)
                         .addGap(18, 18, 18)
-                        .addComponent(lblVISUALNOMECLIENTE, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(lblNomeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)))
+                        .addComponent(lblVISUALNOMECLIENTE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(66, 66, 66))
         );
         panelCamposLayout.setVerticalGroup(
@@ -161,18 +168,14 @@ public class ViewPedido extends javax.swing.JFrame {
                     .addComponent(lblVISUALNOMECLIENTE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnProcurarCliente))
                 .addGap(28, 28, 28)
-                .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblVISUALVALOR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNomeItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblVISUALNOMEITEM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblVISUALITEM)
-                        .addComponent(cbIDItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnProcurarItem)))
+                .addGroup(panelCamposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblVISUALITEM)
+                    .addComponent(cbIDItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProcurarItem)
+                    .addComponent(lblVISUALNOMEITEM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNomeItem)
+                    .addComponent(lblVISUALVALOR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblValor))
                 .addGap(25, 25, 25))
         );
 
@@ -287,12 +290,9 @@ public class ViewPedido extends javax.swing.JFrame {
 
             pedidodao.searchPessoa(CPFSelecionado, objpessoa);
             pedidodao.searchProduto(pedidoSelecionado, objproduto);
-            
+
             //Todos os dados que irao pro registro na tabela Pedido
-            
-            
-            
-            pedidodao.create(objpessoa,objproduto);
+            pedidodao.create(objpessoa, objproduto);
         } else {
             JOptionPane.showMessageDialog(null, "Algum dado não foi informado!");
         }
@@ -306,39 +306,63 @@ public class ViewPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnProcurarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarClienteActionPerformed
-        btnAdicionarPedido.setEnabled(true);
-        PedidoDAO pedidodao = new PedidoDAO();
-        Pessoa objpessoa = new Pessoa();
+        if (cbCPFCliente.getSelectedItem() == "") {
+            cbCPFCliente.setSelectedIndex(0);
+            lblNomeCliente.setText("");
+            JOptionPane.showMessageDialog(null, "Selecione um CPF!");
 
-        Pedido objpedido = new Pedido();
+        } else {
+            Pedido objpedido = new Pedido();
+            String CPFSelecionado = (String) cbCPFCliente.getSelectedItem();
 
-        String CPFSelecionado = (String) cbCPFCliente.getSelectedItem();
+            PedidoDAO pedidodao = new PedidoDAO();
+            Pessoa objpessoa = new Pessoa();
+            pedidodao.searchPessoa(CPFSelecionado, objpessoa);
+            objpedido.setNomeCliente(objpessoa.getNome());
+            objpedido.setCPFCliente(objpessoa.getCPF());
+            objpedido.setEndereco(objpessoa.getEndereco());
+            objpedido.setTelefone(objpessoa.getTelefone());
 
-        pedidodao.searchPessoa(CPFSelecionado, objpessoa);
+            lblNomeCliente.setText(objpedido.getNomeCliente());
 
-        objpedido.setNomeCliente(objpessoa.getNome());
-        objpedido.setCPFCliente(objpessoa.getCPF());
-
-        lblNomeCliente.setText(objpedido.getNomeCliente());
-
+        }
+        if (cbIDItem.getSelectedItem() != "" & cbCPFCliente.getSelectedItem() != "") {
+            btnAdicionarPedido.setEnabled(true);
+        } else {
+            btnAdicionarPedido.setEnabled(false);
+        }
     }//GEN-LAST:event_btnProcurarClienteActionPerformed
 
     private void btnProcurarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarItemActionPerformed
-        btnAdicionarPedido.setEnabled(true);
+        if (cbIDItem.getSelectedItem() == "") {
+            cbIDItem.setSelectedIndex(0);
+            lblNomeItem.setText("");
+            lblValor.setText("");
+            JOptionPane.showMessageDialog(null, "Selecione um Item!");
+        } else {
+            PedidoDAO pedidodao = new PedidoDAO();
+            Pedido objpedido = new Pedido();
+            Produto objproduto = new Produto();
 
-        PedidoDAO pedidodao = new PedidoDAO();
-        Pedido objpedido = new Pedido();
-        Produto objproduto = new Produto();
+            try {
+                int pedidoSelecionado = (int) cbIDItem.getSelectedItem();
 
-        int pedidoSelecionado = (int) cbIDItem.getSelectedItem();
+                objpedido.setNomeItem(objpedido.getNomeItem());
+                objpedido.setValor(objpedido.getValor());
+                pedidodao.searchProduto(pedidoSelecionado, objproduto);
+            } catch (java.lang.ClassCastException ex) {
+                JOptionPane.showMessageDialog(null, "Selecione um produto!");
+            }
+            lblNomeItem.setText(objproduto.getNome());
+            lblValor.setText("R$"+String.valueOf(objproduto.getPreco()));
+        }
+        if (cbIDItem.getSelectedIndex() != 0 & cbCPFCliente.getSelectedIndex() != 0) {
+            btnAdicionarPedido.setEnabled(true);
+        } else {
+            btnAdicionarPedido.setEnabled(false);
+        }
 
-        objpedido.setNomeItem(objpedido.getNomeItem());
-        objpedido.setValor(objpedido.getValor());
 
-        pedidodao.searchProduto(pedidoSelecionado, objproduto);
-
-        lblNomeItem.setText(objproduto.getNome());
-        lblValor.setText(String.valueOf(objproduto.getPreco()));
     }//GEN-LAST:event_btnProcurarItemActionPerformed
 
     private void cbIDItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbIDItemActionPerformed
